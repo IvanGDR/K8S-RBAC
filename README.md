@@ -101,7 +101,7 @@ In order to start building that dev-config file, we need to pass cluster, creden
 
 a) Cluster entry:
 ```
-$ kubectl config set-cluster kubernetes --server=https://111.111.33.147:6443 --certificate-authority=ca.crt --embed-certs=true
+$ kubectl config set-cluster kubernetes --server=https://11.111.33.147:6443 --certificate-authority=ca.crt --embed-certs=true
 ```
 ```
 Cluster "kubernetes" set.
