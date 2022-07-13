@@ -1,7 +1,7 @@
 # Controlling Access in Kubernetes with RBAC
 
 
-## Preparing Certificates for user
+#### Preparing Certificates for user
 
 To find K8s certificate authority (CA), go to
 ```
@@ -41,7 +41,7 @@ and the format for ca.key should start and end like this:
 -----END CERTIFICATE-----
 ```
 
-Make sure openssl is installed and create a certificated for user dev
+Make sure openssl is installed and create a certificated for user "dev".
 
 ```
 $ k8s-resources/rbac$ openssl genrsa -out dev.key 2048
@@ -61,7 +61,7 @@ $ k8s-resources/rbac> ls -la
 -rw------- 1 automaton automaton 1675 Jul 12 10:40 dev.key
 ```
 
-Create a certificate signing request(CSR). Make suer to specify the GROUP dev user belongs to, in this case I will use "Development"
+Create a certificate signing request (CSR). Make sure to specify the GROUP "dev" user belongs to, in this case I will use "Development". Take note of the CN value.
 
 ```
 $ k8s-resources/rbac> openssl req -new -key dev.key -out dev.csr -subj "/CN=User-Dev/O=Development"
@@ -91,13 +91,13 @@ Getting CA Private Key
 #### Creating a new user config file for K8S
 
 
-Lets tell kubectl to look to a new config that does not exist yet
+Lets tell kubectl to look to a new config that does not exist yet, in this case "dev-config" file
 
 ```
 $ export KUBECONFIG=~/.kube/dev-config
 ```
 
-In order to start building that dev-config file, we need to pass cluster, credential and context information.
+In order to start building that dev-config file, we need to pass cluster, credential and context information to the empty file "dev-config".
 
 a) Cluster entry:
 ```
@@ -228,10 +228,11 @@ $ kubectl get pods
 ```
 Error from server (Forbidden): pods is forbidden: User "User-Dev" cannot list resource "pods" in API group "" in the namespace "testnamespace"
 ```
-The error above is because there is not ROLE or ROLE biding associated toi this user "dev"
+The error above is because there is not ROLE or ROLEBINDING associated to this user "dev"
 
 
-At this stage, would worth to pass the initial and new config file paths to the KUBECONFIG variable, in order to switch contexts accordingly
+At this stage, would worth to pass the initial and new config file paths to the KUBECONFIG variable, in order to switch contexts accordingly. This will not persist this variable so to to this add this to e.g. ~/.bashrc
+
 ```
 $ export KUBECONFIG="${HOME}/.kube/config:${HOME}/.kube/dev-config"
 ```
@@ -243,10 +244,10 @@ $ echo $KUBECONFIG
 ```
 
 
-# Implementing Role and Rolebindings
+#### Implementing Role and Rolebindings (RBAC)
 
+From here we are assuming there is a kubernetes cluster with 2 context: kubernetes-admin@kubernetes and dev also the cluster has a namespace testnamespace and with one zookeeper pod.
 
-### Implementing RBAC
 
 Create a role spec file: 
 
@@ -286,6 +287,7 @@ role.rbac.authorization.k8s.io/pod-reader created
 ```
 
 Create the RoleBinding spec file:
+
 ```
 $ k8s-resources> vi pod-reader-rolebinding.yml
 ```
@@ -309,6 +311,7 @@ roleRef:
 Create the RoleBinding:
 
 Make sure you are K8s admin
+
 ```
 $ kubectl config use-context kubernetes-admin@kubernetes
 ```
@@ -328,24 +331,25 @@ rolebinding.rbac.authorization.k8s.io/pod-reader_rb created
 Now change to dev context
 
 ```
-$ kubectl config use-context kubernetes-admin@kubernetes
+$ kubectl config use-context dev
 ```
 ```
 Switched to context "dev".
 ```
 
 Test access again to verify you can successfully list pods:
+
 ```
 $ kubectl get pods
 ```
-Above namespace is not needed as we are under dev context.
+Above namespace name is not needed as we are under dev context.
 On the other hand if we are outside dev context, we can execute this:
 
 ```
 $ kubectl get pods -n testnamespace --kubeconfig $HOME/k8s-resources/dev-config
 ```
 
-This time, we should see a list of pods (there's just one).
+This time, we should see a list of pods, there's just one.
 
 ```
 NAME                              READY   STATUS    RESTARTS   AGE
@@ -358,7 +362,7 @@ Verify the dev user can read pod logs:
 $ kubectl logs zookeeper-depl-5fbcc55b7b-2b4xm
 ```
 
-Above namespace is not needed as we are under dev context.
+Above namespace name is not needed as we are under dev context.
 On the other hand if we are outside dev context, we can execute this:
 
 ```
@@ -378,7 +382,7 @@ Verify the dev user cannot make changes by attempting to delete a pod:
 ```
 $ kubectl delete pod zookeeper-depl-5fbcc55b7b-2b4xm
 ```
-Above namespace is not needed as we are under dev context.
+Above namespace name is not needed as we are under dev context.
 On the other hand if we are outside dev context, we can execute this:
 
 ```
