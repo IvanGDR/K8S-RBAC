@@ -101,7 +101,7 @@ In order to start building that dev-config file, we need to pass cluster, creden
 
 a) Cluster entry:
 ```
-$ kubectl config set-cluster kubernetes --server=https://10.101.33.147:6443 --certificate-authority=ca.crt --embed-certs=true
+$ kubectl config set-cluster kubernetes --server=https://111.111.33.147:6443 --certificate-authority=ca.crt --embed-certs=true
 ```
 ```
 Cluster "kubernetes" set.
@@ -114,7 +114,7 @@ apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: LS00tCg==
-    server: https://10.101.33.147:6443
+    server: https://11.111.33.147:6443
   name: kubernetes
 contexts: null
 current-context: ""
@@ -137,7 +137,7 @@ apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: LS00tCg==
-    server: https://10.101.33.147:6443
+    server: https://11.111.33.147:6443
   name: kubernetes
 contexts: null
 current-context: ""
@@ -167,7 +167,7 @@ apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: LS00tCg==
-    server: https://10.101.33.147:6443
+    server: https://11.111.33.147:6443
   name: kubernetes
 contexts:
 - context:
@@ -200,7 +200,7 @@ apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: LS00tCg==
-    server: https://10.101.33.147:6443
+    server: https://11.111.33.147:6443
   name: kubernetes
 contexts:
 - context:
