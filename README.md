@@ -20,7 +20,7 @@ $ k8s-resources> sudo mkdir rbac
 $ k8s-resources/rbac$ sudo cp /etc/kubernetes/pki/ca.crt ca.crt
 ```
 ```
-$ k8s-resources/rbac> sudo cp /etc/kubernetes/pki/ca.crt ca.key
+$ k8s-resources/rbac> sudo cp /etc/kubernetes/pki/ca.key ca.key
 ```
 ```
 $ k8s-resources/rbac> ls -la
