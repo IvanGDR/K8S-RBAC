@@ -1,7 +1,7 @@
-# Lab: Controlling Access in Kubernetes with RBAC
+# Controlling Access in Kubernetes with RBAC
 
 
-# Preparing Certificates for user
+## Preparing Certificates for user
 
 To find K8s certificate authority (CA), go to
 ```
