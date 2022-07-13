@@ -41,7 +41,7 @@ and the format for ca.key should start and end like this:
 -----END CERTIFICATE-----
 ```
 
-Make sure openssl is installed and create a certificated for user "dev".
+Make sure openssl is installed and create a certificate for user "dev".
 
 ```
 $ k8s-resources/rbac$ openssl genrsa -out dev.key 2048
