@@ -315,9 +315,10 @@ Make sure you are K8s admin
 ```
 $ kubectl config use-context kubernetes-admin@kubernetes
 ```
+```
 Switched to context "kubernetes-admin@kubernetes".
 ```
-```
+
 And then apply rolebinding to testnamespace
 
 ```
