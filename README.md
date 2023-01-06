@@ -390,7 +390,7 @@ On the other hand if we are outside dev context, we can execute this:
 $ kubectl delete pod zookeeper-depl-5fbcc55b7b-2b4xm -n testnamespace --kubeconfig $HOME/k8s-resources/dev-config
 ```
 
-We'll get an error, which is what we want.
+We'll get an error, which is what we expect.
 
 ```
 Error from server (Forbidden): pods "zookeeper-depl-5fbcc55b7b-2b4xm" is forbidden: User "User-Dev" cannot delete resource "pods" in API group "" in the namespace "testnamespace"
